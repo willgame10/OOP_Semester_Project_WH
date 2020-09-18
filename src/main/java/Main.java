@@ -5,7 +5,11 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class Main extends Application {
-
+    /**
+     * brief: Main method that loads the sample.fxml file and opens a window for the program.
+     *
+     * @param args
+     */
     public static void main(String[] args) {
         launch(args);
     }

@@ -7,7 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.*;
 
 /**
- * class that houses all the code needed to run the program
+ * brief: class that houses all the code needed to run the program
  */
 public class Controller {
 
@@ -24,7 +24,7 @@ public class Controller {
     private ChoiceBox<String> itemType;
 
     /**
-     * Method that adds a product into the database using a prepared sql statement.
+     * brief:Method that adds a product into the database using a prepared sql statement.
      */
     public void addProduct(ActionEvent actionEvent) {
         connectToDB();
@@ -35,7 +35,7 @@ public class Controller {
     }
 
     /**
-     * Initializes the program and populates combo box with numbers
+     * brief:Initializes the program and populates combo box with numbers
      */
     public void initialize() {
         itemType.getItems().add("AUDIO");
@@ -47,7 +47,7 @@ public class Controller {
     }
 
     /**
-     * Method that connects the database to the GUI with some
+     * brief: Method that connects the database to the GUI with some
      */
     public void connectToDB() {
         final String JDBC_DRIVER = "org.h2.Driver";
