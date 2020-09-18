@@ -1,6 +1,7 @@
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+
 import java.sql.PreparedStatement;
 
 import java.sql.*;
@@ -68,9 +69,7 @@ public class Controller {
             //STEP 3: Execute a query
             stmt = conn.createStatement();
 
-            /**
-             * prepared statement that inserts data into the database.
-             */
+            //prepared statement that inserts data into the database.
             String insertSql = "INSERT INTO Product(type, manufacturer, name) VALUES ( ? , ? , ? )";
             PreparedStatement ist = conn.prepareStatement(insertSql);
             ist.setString(1, itemType.getValue());
@@ -79,9 +78,8 @@ public class Controller {
 
             ist.executeUpdate();
 
-            /**
-             * prints to console all the products in the database after button click.
-             */
+
+            //prints to console all the products in the database after button click.
             String sql = "select id, name, type, manufacturer from PRODUCT";
 
             ResultSet rs = stmt.executeQuery(sql);
@@ -96,10 +94,7 @@ public class Controller {
             // STEP 4: Clean-up environment
             stmt.close();
             conn.close();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-
-        } catch (SQLException e) {
+        } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         }
     }
