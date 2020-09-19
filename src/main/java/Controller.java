@@ -7,7 +7,9 @@ import java.sql.PreparedStatement;
 import java.sql.*;
 
 /**
- * brief: class that houses all the code needed to run the program
+ * Author: William Howell
+ * Brief: controller file that contains all program code and methods that will be used by the GUI.
+ * contains private variables and initializes the program.
  */
 public class Controller {
 

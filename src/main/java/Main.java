@@ -3,12 +3,14 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+/**
+ * Author: William Howell
+ * Brief: Main java class file that runs the program files.
+ */
 
 public class Main extends Application {
     /**
      * brief: Main method that loads the sample.fxml file and opens a window for the program.
-     *
-     * @param args
      */
     public static void main(String[] args) {
         launch(args);
