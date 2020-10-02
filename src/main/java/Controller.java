@@ -23,7 +23,7 @@ public class Controller {
     private TextField prMan;
 
     @FXML
-    private ChoiceBox<String> itemType;
+    private ChoiceBox<String> itemTypeCB;
 
     /**
      * brief:Method that adds a product into the database using a prepared sql statement.
@@ -40,7 +40,10 @@ public class Controller {
      * brief:Initializes the program and populates combo box with numbers
      */
     public void initialize() {
-        itemType.getItems().add("AUDIO");
+        itemTypeCB.getItems().addAll(ItemType.AUDIO.code,
+                ItemType.VISUAL.code,
+                ItemType.AUDIO_MOBILE.code,
+                ItemType.VISUAL_MOBILE.code);
         for (int i = 1; i < 11; i++) {
             chQuantity.getItems().add(String.valueOf(i));
             chQuantity.setEditable(true);
@@ -74,7 +77,7 @@ public class Controller {
             //prepared statement that inserts data into the database.
             String insertSql = "INSERT INTO Product(type, manufacturer, name) VALUES ( ? , ? , ? )";
             PreparedStatement ist = conn.prepareStatement(insertSql);
-            ist.setString(1, itemType.getValue());
+            ist.setString(1, itemTypeCB.getValue());
             ist.setString(2, prMan.getText());
             ist.setString(3, prName.getText());
 
@@ -82,7 +85,7 @@ public class Controller {
 
 
             //prints to console all the products in the database after button click.
-            String sql = "select id, name, type, manufacturer from PRODUCT";
+            String sql = "select * from PRODUCT";
 
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()) {
