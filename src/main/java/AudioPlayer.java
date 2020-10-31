@@ -1,5 +1,3 @@
-import java.lang.reflect.Type;
-
 public class AudioPlayer extends Product implements MultiMediaControl{
 
     String supportedAudioFormats;
@@ -13,7 +11,7 @@ public class AudioPlayer extends Product implements MultiMediaControl{
     }
 
     @Override
-    public String Manufacturer() {
+    public String getManufacturer() {
         return "Manufacturer";
     }
 
@@ -39,7 +37,7 @@ public class AudioPlayer extends Product implements MultiMediaControl{
 
     public String toString() {
         return "Name: " + getName() + "\n" + "Manufacturer: " + getManufacturer() + "\n" + "Type: "
-                + ItemType.AUDIO + "\n" +"supported audio formats: " + supportedAudioFormats + "\n"
-                +"supported playlist formats: " +supportedPlaylistFormats;
+                + ItemType.AUDIO + "\n" +"Supported Audio Formats: " + supportedAudioFormats + "\n"
+                +"Supported Playlist Formats: " +supportedPlaylistFormats;
     }
 }

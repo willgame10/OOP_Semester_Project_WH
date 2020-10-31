@@ -7,5 +7,5 @@ public interface Item {
 
     void setManufacturer(String Manufacturer);
 
-    String Manufacturer();
+    String getManufacturer();
 }

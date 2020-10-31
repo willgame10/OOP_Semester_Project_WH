@@ -9,10 +9,13 @@ import javafx.stage.Stage;
  */
 
 public class Main extends Application {
+
     /**
      * brief: Main method that loads the sample.fxml file and opens a window for the program.
      */
     public static void main(String[] args) {
+        /*Controller controller = new Controller();
+        controller.connectToDB();*/
         launch(args);
     }
 
@@ -25,5 +28,6 @@ public class Main extends Application {
         primaryStage.setTitle("OOP_Semester_Project");
         primaryStage.setScene(scene);
         primaryStage.show();
+
     }
 }

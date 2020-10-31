@@ -39,8 +39,10 @@ public abstract class Product implements Item {
     }
 }
 
-abstract class Widget extends Product{
-    Widget(String name, String manufacturer, String type) {
-        super(name, manufacturer, type);
+abstract class Widget extends Product {
+
+    Widget(String name, String manufacturer, ItemType type) {
+
+        super(name, manufacturer, type.getCode());
     }
 }
