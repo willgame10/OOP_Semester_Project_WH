@@ -1,8 +1,12 @@
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.cell.PropertyValueFactory;
 
+import javax.swing.*;
 import java.sql.PreparedStatement;
 
 import java.sql.*;
@@ -13,6 +17,8 @@ import java.sql.*;
  * contains private variables and initializes the program.
  */
 public class Controller {
+
+    private ObservableList<Product> productLine;
 
     private static PreparedStatement ist;
 
@@ -32,7 +38,22 @@ public class Controller {
     private TextField prMan;
 
     @FXML
+    private TableView<Product> existingProd;
+
+    @FXML
+    private ListView<Product> list_View;
+
+    @FXML
     private ChoiceBox<String> itemTypeCB;
+
+    @FXML
+    private TableColumn<?, ?> typeCol;
+
+    @FXML
+    private TableColumn<?, ?> manufacCol;
+
+    @FXML
+    private TableColumn<?, ?> productCol;
 
     @FXML
     private TextArea text_area;
@@ -53,10 +74,18 @@ public class Controller {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
+        setupProductLineTable();
+        setupProduceListView();
     }
 
     public void recordProduction(ActionEvent actionEvent) {
-        System.out.println();
+        Product produced = new Product("Ipod", "Apple", ItemType.VISUAL_MOBILE);
+        produced.setId(5);
+        ProductionRecord prodRec = new ProductionRecord(produced, 7);
+        text_area.appendText(prodRec.toString());
+
+
     }
 
     /**
@@ -65,7 +94,7 @@ public class Controller {
     public void initialize() {
         connectToDB();
         for (ItemType item : ItemType.values()) {
-            itemTypeCB.getItems().add(item.getCode());
+            itemTypeCB.getItems().add(String.valueOf(item));
         }
         for (int i = 1; i < 11; i++) {
             chQuantity.getItems().add(String.valueOf(i));
@@ -73,6 +102,7 @@ public class Controller {
             chQuantity.getSelectionModel().selectFirst();
         }
         showProduction();
+        productLine = FXCollections.observableArrayList();
 
         try {
             String sql = "select * from PRODUCT";
@@ -84,7 +114,7 @@ public class Controller {
                 System.out.println(rs.getString(3));
                 System.out.println(rs.getString(4));
             }
-        }catch(SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
 
@@ -120,11 +150,11 @@ public class Controller {
         text_area.clear();
         try {
             stmt = conn.createStatement();
-            String sql = "SELECT * FROM PRODUCT";
+            String sql = "SELECT * FROM PRODUCTIONRECORD";
             rs = stmt.executeQuery(sql);
             while (rs.next()) {
                 text_area.appendText(
-                        "Product Name: " + rs.getString("NAME") + "\n"
+                        "Production Number: " + rs.getString("PRODUCTION_NUMBER") + "\n"
                                 + "Product Id: " + rs.getInt("PRODUCT_ID") + "\n"
                                 + "Serial Number: " + rs.getString("SERIAL_NUM") + "\n"
                                 + "Date Produced: " + rs.getTimestamp("DATE_PRODUCED") + "\n");
@@ -135,5 +165,25 @@ public class Controller {
         }
     }
 
+    private void setupProductLineTable() {
+        String name = prName.getText();
+
+        String manufacturer = prMan.getText();
+
+        String type = itemTypeCB.getValue();
+
+
+        Product product = new Product(name, manufacturer, ItemType.valueOf(type));
+        productLine.add(product);
+        typeCol.setCellValueFactory(new PropertyValueFactory("Type"));
+        manufacCol.setCellValueFactory(new PropertyValueFactory("Manufacturer"));
+        productCol.setCellValueFactory(new PropertyValueFactory("Name"));
+        existingProd.setItems(productLine);
+    }
+
+    private void setupProduceListView() {
+        list_View.setItems(productLine);
+    }
 
 }
+

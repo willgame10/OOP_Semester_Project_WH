@@ -7,13 +7,12 @@ public class ProductionRecord {
     public String serialNumber;
     public Date dateProduced;
 
-
     public int getProductionNum() {
         return productionNumber;
     }
 
     public void setProductionNum(int productionNum) {
-       productionNumber = productionNum;
+        productionNumber = productionNum;
     }
 
     public int getProductID() {
@@ -47,39 +46,26 @@ public class ProductionRecord {
         dateProduced = new Date();
     }
 
-    ProductionRecord(int productionNumber,int productID , String serialNumber, Date dateProduced) {
+    ProductionRecord(int productionNumber, int productID, String serialNumber, Date dateProduced) {
         this.productionNumber = productionNumber;
         this.productID = productID;
         this.serialNumber = serialNumber;
         this.dateProduced = dateProduced;
     }
 
-/*
-    ProductionRecord(Product product, int prodCount){
-        String type = "AU";
-        switch(type){
-            case ItemType.AUDIO.code:
-                type = ItemType.AUDIO.getCode();
-                break;
-            case ItemType.VISUAL.code:
-                type = ItemType.VISUAL.getCode();
-                break;
-            case ItemType.AUDIO_MOBILE.code:
-                type = ItemType.AUDIO_MOBILE.getCode();
-                break;
-            case ItemType.VISUAL_MOBILE.code:
-                type = ItemType.VISUAL_MOBILE.getCode();
-                break;
-        }
-        serialNumber = product.getManufacturer().substring(0,2) + type + productID;
+    ProductionRecord(Product product, int prodCount) {
+        this.productionNumber = 0;
+        this.productID = product.getId();
+        serialNumber = product.getManufacturer().substring(0, 2) + product.getType().code + String.format("%05d", prodCount);
+        this.dateProduced = new Date();
     }
-*/
 
     @Override
     public String toString() {
-        return  "Prod. Num: " + productionNumber +
+        return "Prod. Num: " + productionNumber +
                 " Product ID: " + getProductID() +
                 " Serial Num: " + getSerialNum() +
                 " Date: " + getProdDate();
     }
+
 }
