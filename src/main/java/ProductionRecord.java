@@ -2,7 +2,7 @@ import java.util.Date;
 
 public class ProductionRecord {
 
-    public int productionNumber;
+    public int productionNumber = 0;
     public int productID;
     public String serialNumber;
     public Date dateProduced;
@@ -41,12 +41,12 @@ public class ProductionRecord {
 
     ProductionRecord(int productID) {
         this.productID = productID;
-        productionNumber = 0;
+        productionNumber++;
         serialNumber = String.valueOf(0);
         dateProduced = new Date();
     }
 
-    ProductionRecord(int productionNumber, int productID, String serialNumber, Date dateProduced) {
+    ProductionRecord(Product product, int productionNumber, int productID, String serialNumber, Date dateProduced, int prodCount) {
         this.productionNumber = productionNumber;
         this.productID = productID;
         this.serialNumber = serialNumber;
@@ -54,18 +54,18 @@ public class ProductionRecord {
     }
 
     ProductionRecord(Product product, int prodCount) {
-        this.productionNumber = 0;
-        this.productID = product.getId();
-        serialNumber = product.getManufacturer().substring(0, 2) + product.getType().code + String.format("%05d", prodCount);
-        this.dateProduced = new Date();
+        productionNumber++;
+        productID = product.getId();
+        serialNumber = product.getManufacturer().substring(0, 3) + product.getType().code + String.format("%05d", prodCount);
+        dateProduced = new Date();
     }
 
     @Override
     public String toString() {
-        return "Prod. Num: " + productionNumber +
+        return "Prod. Num: " + getProductionNum() +
                 " Product ID: " + getProductID() +
                 " Serial Num: " + getSerialNum() +
-                " Date: " + getProdDate();
+                " Date: " + getProdDate() + "\n";
     }
 
 }

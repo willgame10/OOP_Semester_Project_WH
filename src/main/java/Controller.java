@@ -80,12 +80,14 @@ public class Controller {
     }
 
     public void recordProduction(ActionEvent actionEvent) {
-        Product produced = new Product("Ipod", "Apple", ItemType.VISUAL_MOBILE);
-        produced.setId(5);
-        ProductionRecord prodRec = new ProductionRecord(produced, 7);
-        text_area.appendText(prodRec.toString());
+        int quan = Integer.parseInt(chQuantity.getSelectionModel().getSelectedItem());
+        for(int i = 0;i < quan;i++ ) {
 
-
+            Product produced = new Widget("Ipod", "Apple", ItemType.VISUAL_MOBILE);
+            produced.setId(5);
+            ProductionRecord prodRec = new ProductionRecord(produced, 1);
+            text_area.appendText(prodRec.toString());
+        }
     }
 
     /**
@@ -117,7 +119,6 @@ public class Controller {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
     }
 
     /**
@@ -173,12 +174,13 @@ public class Controller {
         String type = itemTypeCB.getValue();
 
 
-        Product product = new Product(name, manufacturer, ItemType.valueOf(type));
+        Product product = new Widget(name, manufacturer, ItemType.valueOf(type));
         productLine.add(product);
         typeCol.setCellValueFactory(new PropertyValueFactory("Type"));
         manufacCol.setCellValueFactory(new PropertyValueFactory("Manufacturer"));
         productCol.setCellValueFactory(new PropertyValueFactory("Name"));
         existingProd.setItems(productLine);
+        list_View.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
     }
 
     private void setupProduceListView() {

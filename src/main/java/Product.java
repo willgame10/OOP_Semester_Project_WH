@@ -1,4 +1,4 @@
-public class Product implements Item {
+abstract public class Product implements Item {
 
     private int Id;
     private ItemType Type;
@@ -50,7 +50,7 @@ public class Product implements Item {
     }
 }
 
-abstract class Widget extends Product {
+class Widget extends Product {
 
     Widget(String name, String manufacturer, ItemType type) {
 
