@@ -2,7 +2,7 @@ import java.util.Date;
 
 public class ProductionRecord {
 
-    public int productionNumber = 0;
+    protected static int productionNumber = 0;
     public int productID;
     public String serialNumber;
     public Date dateProduced;
@@ -47,7 +47,7 @@ public class ProductionRecord {
     }
 
     ProductionRecord(Product product, int productionNumber, int productID, String serialNumber, Date dateProduced, int prodCount) {
-        this.productionNumber = productionNumber;
+        ProductionRecord.productionNumber = productionNumber;
         this.productID = productID;
         this.serialNumber = serialNumber;
         this.dateProduced = dateProduced;
@@ -56,7 +56,7 @@ public class ProductionRecord {
     ProductionRecord(Product product, int prodCount) {
         productionNumber++;
         productID = product.getId();
-        serialNumber = product.getManufacturer().substring(0, 3) + product.getType().code + String.format("%05d", prodCount);
+        serialNumber = product.getManufacturer().substring(0, 3) + product.getType().code + String.format("%05d", productionNumber);
         dateProduced = new Date();
     }
 

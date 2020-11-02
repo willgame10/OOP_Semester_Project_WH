@@ -1,4 +1,4 @@
-public class Screen implements ScreenSpec{
+public class Screen implements ScreenSpec {
 
     String resolution;
     int refreshRate;

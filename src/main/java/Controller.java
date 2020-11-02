@@ -20,7 +20,7 @@ public class Controller {
 
     private ObservableList<Product> productLine;
 
-    private static PreparedStatement ist;
+    private PreparedStatement ist;
 
     private static Connection conn;
 
@@ -80,13 +80,12 @@ public class Controller {
     }
 
     public void recordProduction(ActionEvent actionEvent) {
-        int quan = Integer.parseInt(chQuantity.getSelectionModel().getSelectedItem());
-        for(int i = 0;i < quan;i++ ) {
+        int numprod = Integer.parseInt(chQuantity.getValue());
+        int select = list_View.getSelectionModel().getSelectedIndex();
 
-            Product produced = new Widget("Ipod", "Apple", ItemType.VISUAL_MOBILE);
-            produced.setId(5);
-            ProductionRecord prodRec = new ProductionRecord(produced, 1);
-            text_area.appendText(prodRec.toString());
+        for (int i = 0; i < numprod; i++) {
+            ProductionRecord item = new ProductionRecord(productLine.get(select), numprod);
+            text_area.appendText(String.valueOf(item));
         }
     }
 
