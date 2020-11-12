@@ -10,6 +10,7 @@ import javax.swing.*;
 import java.sql.PreparedStatement;
 
 import java.sql.*;
+import java.util.Date;
 
 /**
  * Author: William Howell
@@ -27,6 +28,7 @@ public class Controller {
     private static Statement stmt;
 
     private static ResultSet rs;
+
 
     @FXML
     private ComboBox<String> chQuantity;
@@ -58,6 +60,12 @@ public class Controller {
     @FXML
     private TextArea text_area;
 
+    int serialId;
+    int idAU;
+    int idAM;
+    int idVI;
+    int idVM;
+
     /**
      * brief:Method that adds a product into the database using a prepared sql statement.
      */
@@ -69,7 +77,6 @@ public class Controller {
             ist.setString(1, itemTypeCB.getValue());
             ist.setString(2, prMan.getText());
             ist.setString(3, prName.getText());
-
             ist.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -80,13 +87,42 @@ public class Controller {
     }
 
     public void recordProduction(ActionEvent actionEvent) {
-        int numprod = Integer.parseInt(chQuantity.getValue());
+        int numProd = Integer.parseInt(chQuantity.getValue());
         int select = list_View.getSelectionModel().getSelectedIndex();
-
-        for (int i = 0; i < numprod; i++) {
-            ProductionRecord item = new ProductionRecord(productLine.get(select), numprod);
+        for (int i = 0; i < numProd; i++) {
+            switch (productLine.get(select).getType()) {
+                case AUDIO:
+                    idAU++;
+                    serialId = idAU;
+                    break;
+                case VISUAL:
+                    idVI++;
+                    serialId = idVI;
+                    break;
+                case AUDIO_MOBILE:
+                    idAM++;
+                    serialId = idAM;
+                    break;
+                case VISUAL_MOBILE:
+                    idVM++;
+                    serialId = idVM;
+                    break;
+            }
+            ProductionRecord item = new ProductionRecord(productLine.get(select), serialId);
             text_area.appendText(String.valueOf(item));
+/*            try {
+            String insertSql = "INSERT INTO PRODUCTIONRECORD(PRODUCTION_NUM, PRODUCT_ID, SERIAL_NUM, DATE_PRODUCED) VALUES ( ? , ? , ? , ?)";
+            ist = conn.prepareStatement(insertSql);
+            ist.setInt(1, numProd);
+            ist.setInt(2, );
+            ist.setInt(3, serialId);
+            ist.setDate(4, new Date);
+
+        } catch(SQLException e){
+            e.printStackTrace();
+        }*/
         }
+
     }
 
     /**

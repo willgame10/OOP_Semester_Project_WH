@@ -41,9 +41,9 @@ public class ProductionRecord {
 
     ProductionRecord(int productID) {
         this.productID = productID;
-        productionNumber++;
         serialNumber = String.valueOf(0);
         dateProduced = new Date();
+        productionNumber++;
     }
 
     ProductionRecord(Product product, int productionNumber, int productID, String serialNumber, Date dateProduced, int prodCount) {
@@ -54,10 +54,11 @@ public class ProductionRecord {
     }
 
     ProductionRecord(Product product, int prodCount) {
-        productionNumber++;
-        productID = product.getId();
-        serialNumber = product.getManufacturer().substring(0, 3) + product.getType().code + String.format("%05d", productionNumber);
+        String endSerialDigits = String.format("%05d", prodCount);
+        productID =getProductID();
+        serialNumber = product.getManufacturer().substring(0, 3) + product.getType().code + endSerialDigits;
         dateProduced = new Date();
+        productionNumber++;
     }
 
     @Override
