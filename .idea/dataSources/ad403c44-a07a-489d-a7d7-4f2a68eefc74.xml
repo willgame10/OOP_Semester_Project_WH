@@ -172,23 +172,23 @@
     <collation id="160" parent="2" name="UKRAINIAN_UKRAINE"/>
     <collation id="161" parent="2" name="VIETNAMESE"/>
     <collation id="162" parent="2" name="VIETNAMESE_VIETNAM"/>
-    <sequence id="163" parent="4" name="SYSTEM_SEQUENCE_3871C5AF_C5BB_46C7_9593_8547500A1E8D">
-      <ObjectId>9</ObjectId>
+    <sequence id="163" parent="4" name="SYSTEM_SEQUENCE_1120658C_E0BC_4049_BB44_05FA59D03580">
+      <ObjectId>6</ObjectId>
       <NameSurrogate>1</NameSurrogate>
       <CacheSize>32</CacheSize>
       <AutoCreated>1</AutoCreated>
     </sequence>
-    <sequence id="164" parent="4" name="SYSTEM_SEQUENCE_AC2EF90C_66C0_4BB8_BEFE_006CB6B0DE5D">
+    <sequence id="164" parent="4" name="SYSTEM_SEQUENCE_538E049C_C674_42DF_90BB_E585B8723DFD">
       <ObjectId>4</ObjectId>
       <NameSurrogate>1</NameSurrogate>
       <CacheSize>32</CacheSize>
       <AutoCreated>1</AutoCreated>
     </sequence>
     <table id="165" parent="4" name="PRODUCT">
-      <ObjectId>3</ObjectId>
+      <ObjectId>5</ObjectId>
     </table>
     <table id="166" parent="4" name="PRODUCTIONRECORD">
-      <ObjectId>8</ObjectId>
+      <ObjectId>3</ObjectId>
     </table>
     <column id="167" parent="165" name="ID">
       <Position>1</Position>
@@ -209,7 +209,7 @@
       <DataType>VARCHAR|0s</DataType>
     </column>
     <index id="171" parent="165" name="PRIMARY_KEY_1">
-      <ObjectId>6</ObjectId>
+      <ObjectId>8</ObjectId>
       <NameSurrogate>1</NameSurrogate>
       <SourceTextLength>71</SourceTextLength>
       <ColNames>ID</ColNames>
@@ -217,7 +217,7 @@
       <AutoCreated>1</AutoCreated>
     </index>
     <index id="172" parent="165" name="PRODUCT_ID_UINDEX">
-      <ObjectId>5</ObjectId>
+      <ObjectId>7</ObjectId>
       <SourceTextLength>76</SourceTextLength>
       <ColNames>ID</ColNames>
       <Unique>1</Unique>

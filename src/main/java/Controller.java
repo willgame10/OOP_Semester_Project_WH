@@ -6,11 +6,11 @@ import javafx.scene.control.*;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-import javax.swing.*;
+
 import java.sql.PreparedStatement;
 
 import java.sql.*;
-import java.util.Date;
+
 
 /**
  * Author: William Howell
@@ -19,7 +19,7 @@ import java.util.Date;
  */
 public class Controller {
 
-    private ObservableList<Product> productLine;
+    private ObservableList<Product> productLine = FXCollections.observableArrayList();
 
     private PreparedStatement ist;
 
@@ -78,12 +78,12 @@ public class Controller {
             ist.setString(2, prMan.getText());
             ist.setString(3, prName.getText());
             ist.executeUpdate();
+            Product product = new Widget(prName.getText(), prMan.getText(), ItemType.valueOf(itemTypeCB.getValue()));
+            productLine.add(product);
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        setupProductLineTable();
-        setupProduceListView();
     }
 
     public void recordProduction(ActionEvent actionEvent) {
@@ -108,19 +108,22 @@ public class Controller {
                     serialId = idVM;
                     break;
             }
+
             ProductionRecord item = new ProductionRecord(productLine.get(select), serialId);
             text_area.appendText(String.valueOf(item));
-/*            try {
-            String insertSql = "INSERT INTO PRODUCTIONRECORD(PRODUCTION_NUM, PRODUCT_ID, SERIAL_NUM, DATE_PRODUCED) VALUES ( ? , ? , ? , ?)";
-            ist = conn.prepareStatement(insertSql);
-            ist.setInt(1, numProd);
-            ist.setInt(2, );
-            ist.setInt(3, serialId);
-            ist.setDate(4, new Date);
+            Timestamp date = new Timestamp(item.getProdDate().getTime());
 
-        } catch(SQLException e){
-            e.printStackTrace();
-        }*/
+            try {
+                String insertSql = "INSERT INTO PRODUCTIONRECORD( PRODUCT_ID, SERIAL_NUM, DATE_PRODUCED) VALUES ( ? , ? , ?)";
+                ist = conn.prepareStatement(insertSql);
+                ist.setString(1, String.valueOf(productLine.get(select).getId()));
+                ist.setString(2, item.getSerialNum());
+                ist.setString(3, String.valueOf(date));
+                ist.executeUpdate();
+            }
+            catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
 
     }
@@ -139,17 +142,22 @@ public class Controller {
             chQuantity.getSelectionModel().selectFirst();
         }
         showProduction();
-        productLine = FXCollections.observableArrayList();
+        setupProduceListView();
+        setupProductLineTable();
 
         try {
             String sql = "select * from PRODUCT";
 
             rs = stmt.executeQuery(sql);
             while (rs.next()) {
-                System.out.println(rs.getString(1));
-                System.out.println(rs.getString(2));
-                System.out.println(rs.getString(3));
-                System.out.println(rs.getString(4));
+                String name = rs.getString(2);
+
+                String type = rs.getString(3);
+
+                String manufacturer = rs.getString(4);
+
+                Product product = new Widget(name, manufacturer, ItemType.valueOf(type));
+                productLine.add(product);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -189,33 +197,22 @@ public class Controller {
             String sql = "SELECT * FROM PRODUCTIONRECORD";
             rs = stmt.executeQuery(sql);
             while (rs.next()) {
-                text_area.appendText(
-                        "Production Number: " + rs.getString("PRODUCTION_NUMBER") + "\n"
-                                + "Product Id: " + rs.getInt("PRODUCT_ID") + "\n"
-                                + "Serial Number: " + rs.getString("SERIAL_NUM") + "\n"
-                                + "Date Produced: " + rs.getTimestamp("DATE_PRODUCED") + "\n");
+                ProductionRecord productionRecord = new ProductionRecord(rs.getInt("PRODUCTION_NUM"), rs.getInt("PRODUCT_ID"),
+                        rs.getString("SERIAL_NUM"), rs.getDate("DATE_PRODUCED"));
+                text_area.appendText(productionRecord.toString());
             }
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
     private void setupProductLineTable() {
-        String name = prName.getText();
 
-        String manufacturer = prMan.getText();
-
-        String type = itemTypeCB.getValue();
-
-
-        Product product = new Widget(name, manufacturer, ItemType.valueOf(type));
-        productLine.add(product);
         typeCol.setCellValueFactory(new PropertyValueFactory("Type"));
         manufacCol.setCellValueFactory(new PropertyValueFactory("Manufacturer"));
         productCol.setCellValueFactory(new PropertyValueFactory("Name"));
+
         existingProd.setItems(productLine);
-        list_View.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
     }
 
     private void setupProduceListView() {
@@ -223,4 +220,3 @@ public class Controller {
     }
 
 }
-

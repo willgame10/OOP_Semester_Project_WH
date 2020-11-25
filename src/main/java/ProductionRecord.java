@@ -46,7 +46,7 @@ public class ProductionRecord {
         productionNumber++;
     }
 
-    ProductionRecord(Product product, int productionNumber, int productID, String serialNumber, Date dateProduced, int prodCount) {
+    ProductionRecord(int productionNumber, int productID, String serialNumber, Date dateProduced) {
         ProductionRecord.productionNumber = productionNumber;
         this.productID = productID;
         this.serialNumber = serialNumber;
@@ -63,7 +63,7 @@ public class ProductionRecord {
 
     @Override
     public String toString() {
-        return "Prod. Num: " + getProductionNum() +
+        return  "Prod. Num: " + getProductionNum() +
                 " Product ID: " + getProductID() +
                 " Serial Num: " + getSerialNum() +
                 " Date: " + getProdDate() + "\n";
