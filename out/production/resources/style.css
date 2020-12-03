@@ -1,0 +1,11 @@
+.root {
+    -fx-background-color: #6A6969;
+}
+
+.button {
+    -fx-border-color: black;
+}
+
+.tab-pane {
+    -fx-background-color: grey;
+}
