@@ -20,7 +20,7 @@ highs from the work.
 ##Javadocs
 <br />
 
-![JavaDocs](https://willgame10.github.io/OOP_Semester_Project_WH/docs/index.html)
+![JavaDocs](https://github.com/willgame10/OOP_Semester_Project_WH/blob/master/docs/index.html)
 
 #Diagram
 <br />
