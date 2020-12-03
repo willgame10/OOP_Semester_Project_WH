@@ -1,24 +1,27 @@
+
+/**
+ * Author: William Howell
+ * Brief: Product class file that contains methods, to_strings, and fields.
+ */
 abstract public class Product implements Item {
 
-    private int Id;
+    private final int Id;
     private ItemType Type;
     private String Manufacturer;
     private String Name;
 
-
-    Product(String name, String manufacturer, ItemType type) {
+    //product constructor
+    Product(int id, String name, String manufacturer, ItemType type) {
+        Id = id;
         this.Name = name;
         this.Manufacturer = manufacturer;
         this.setType(type);
     }
 
+    //to string constructor
     public String toString() {
         return "Name: " + Name + "\n" + "Manufacturer: " + Manufacturer + "\n" + "Type: "
                 + getType();
-    }
-
-    public void setId(int Id) {
-        this.Id = Id;
     }
 
     public int getId() {
@@ -30,7 +33,7 @@ abstract public class Product implements Item {
     }
 
     public void setManufacturer(String manufacturer) {
-        this.Manufacturer = manufacturer;
+        Manufacturer = manufacturer;
     }
 
     public String getName() {
@@ -47,13 +50,5 @@ abstract public class Product implements Item {
 
     public void setType(ItemType type) {
         Type = type;
-    }
-}
-
-class Widget extends Product {
-
-    Widget(String name, String manufacturer, ItemType type) {
-
-        super(name, manufacturer, type);
     }
 }

@@ -1,3 +1,8 @@
+/**
+ * Author: William Howell
+ * Brief: Screen class file that contains methods, to_strings, and fields.
+ */
+
 public class Screen implements ScreenSpec {
 
     String resolution;

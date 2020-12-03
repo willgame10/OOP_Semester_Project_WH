@@ -1,10 +1,15 @@
-public class AudioPlayer extends Product implements MultiMediaControl{
+
+/**
+ * Author: William Howell
+ * Brief: AudioPlayer class file that contains methods, to_strings, and fields.
+ */
+public class AudioPlayer extends Product implements MultiMediaControl {
 
     String supportedAudioFormats;
     String supportedPlaylistFormats;
 
-    public AudioPlayer(String name, String manufacturer, String supportedAudioFormats, String supportedPlaylistFormats) {
-        super(name, manufacturer, ItemType.AUDIO);
+    public AudioPlayer(String name, String manufacturer, String supportedAudioFormats, String supportedPlaylistFormats, int id) {
+        super(id, name, manufacturer, ItemType.AUDIO);
 
         this.supportedAudioFormats = supportedAudioFormats;
         this.supportedPlaylistFormats = supportedPlaylistFormats;

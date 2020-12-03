@@ -1,8 +1,13 @@
+
 import java.util.Date;
 
+/**
+ * Author: William Howell
+ * Brief: ProductionRecord class file that contains methods, to_strings, and fields.
+ */
 public class ProductionRecord {
 
-    protected static int productionNumber = 0;
+    public int productionNumber;
     public int productID;
     public String serialNumber;
     public Date dateProduced;
@@ -11,9 +16,6 @@ public class ProductionRecord {
         return productionNumber;
     }
 
-    public void setProductionNum(int productionNum) {
-        productionNumber = productionNum;
-    }
 
     public int getProductID() {
         return productID;
@@ -27,27 +29,12 @@ public class ProductionRecord {
         return serialNumber;
     }
 
-    public void setSerialNum(String serialNum) {
-        serialNumber = serialNum;
-    }
-
     public Date getProdDate() {
         return dateProduced;
     }
 
-    public void setProdDate(Date dateProd) {
-        dateProduced = dateProd;
-    }
-
-    ProductionRecord(int productID) {
-        this.productID = productID;
-        serialNumber = String.valueOf(0);
-        dateProduced = new Date();
-        productionNumber++;
-    }
-
     ProductionRecord(int productionNumber, int productID, String serialNumber, Date dateProduced) {
-        ProductionRecord.productionNumber = productionNumber;
+        this.productionNumber = productionNumber;
         this.productID = productID;
         this.serialNumber = serialNumber;
         this.dateProduced = dateProduced;
@@ -55,7 +42,7 @@ public class ProductionRecord {
 
     ProductionRecord(Product product, int prodCount) {
         String endSerialDigits = String.format("%05d", prodCount);
-        productID =getProductID();
+        setProductID(product.getId());
         serialNumber = product.getManufacturer().substring(0, 3) + product.getType().code + endSerialDigits;
         dateProduced = new Date();
         productionNumber++;
@@ -63,10 +50,19 @@ public class ProductionRecord {
 
     @Override
     public String toString() {
-        return  "Prod. Num: " + getProductionNum() +
-                " Product ID: " + getProductID() +
+        return "Prod. Num: " + getProductionNum() +
+                " Product Id: " + getProductID() +
                 " Serial Num: " + getSerialNum() +
                 " Date: " + getProdDate() + "\n";
     }
+
+    //to string that replaces the product ID with the product name
+    public String toString(String prodName) {
+        return "Prod. Num: " + getProductionNum() +
+                " Product Name: " + prodName +
+                " Serial Num: " + getSerialNum() +
+                " Date: " + getProdDate() + "\n";
+    }
+
 
 }

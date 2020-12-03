@@ -1,10 +1,15 @@
+
+/**
+ * Author: William Howell
+ * Brief: MoviePlayer class file that contains methods, to_strings, and fields.
+ */
 public class MoviePlayer extends Product implements MultiMediaControl {
 
     Screen screen;
     MonitorType monitorType;
 
-    public MoviePlayer(String name, String manufacturer, Screen screen, MonitorType monitorType) {
-        super(name, manufacturer, ItemType.VISUAL);
+    public MoviePlayer(String name, String manufacturer, Screen screen, MonitorType monitorType, int id) {
+        super(id, name, manufacturer, ItemType.VISUAL);
 
         this.monitorType = monitorType;
         this.screen = screen;

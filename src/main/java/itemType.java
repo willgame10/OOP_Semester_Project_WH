@@ -1,3 +1,7 @@
+/**
+ * Author: William Howell
+ * Brief: Enum that stores all of the product types and their 2 letter signature.
+ */
 enum ItemType {
     AUDIO("AU"),
     VISUAL("VI"),

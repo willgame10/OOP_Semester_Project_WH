@@ -1,3 +1,7 @@
+/**
+ * Author: William Howell
+ * Brief: methods that must be implemented if a class extends Item.
+ */
 public interface Item {
     int getId();
 
