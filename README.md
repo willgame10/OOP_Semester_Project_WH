@@ -12,17 +12,17 @@ is the culmination of all of my work. I'm glad I went through it
 and even though I had a lot of tough times I had a lot of fun and
 highs from the work.
 
-#####Demonstration
+##Demonstration
 <br />
 
 ![productionrunning](https://media.giphy.com/media/zomn3HpxEKhqKIdwQy/giphy.gif)
 
-#####Javadocs
+##Javadocs
 <br />
 
-![JavaDocs](https://github.com/willgame10/OOP_Semester_Project_WH/docs/index.html)
+![JavaDocs](https://willgame10.github.io/OOP_Semester_Project_WH/docs/index.html)
 
-#####Diagram
+#Diagram
 <br />
 
 ![Diagram](Package io.png)
