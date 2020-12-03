@@ -17,7 +17,7 @@ highs from the work.
 ![productionrunning](https://media.giphy.com/media/zomn3HpxEKhqKIdwQy/giphy.gif)
 
 #####Javadocs
-![JavaDocs](https://github.com/willgame10/OOP_Semester_Project_WH/docs/Product.html)
+![JavaDocs](https://github.com/willgame10/OOP_Semester_Project_WH/docs/index.html)
 
 #####Diagram
 ![Diagram](Package io.png)
