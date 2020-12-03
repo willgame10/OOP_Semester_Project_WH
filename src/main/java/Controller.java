@@ -621,6 +621,7 @@ public class Controller {
             e.printStackTrace();
         }
     }
+
     //reverses the string of anything passed into it.
     public String reverseString(String pw) {
         if (pw.length() <= 1) {
@@ -632,8 +633,8 @@ public class Controller {
     /**
      * Brief: reads password from reader and returns what was found.
      *
-     * @param reader    -   Buffered reader that will hold the path of the file we want to read.
-     * @return      - returns what was found in the file.
+     * @param reader -   Buffered reader that will hold the path of the file we want to read.
+     * @return - returns what was found in the file.
      * @throws IOException -
      */
     public String readPassword(BufferedReader reader) throws IOException {
