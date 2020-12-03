@@ -2,7 +2,7 @@
 
 This is a production recording GUI. <br />
 Author: William Howell <br />
-Last Updated: 12/3/2020
+Last Updated: 12/3/2020 <br />
 This was made as an assignment from my COP 3003 class at
 Florida Gulf Coast University. The assignment was a semester 
 long project that we built on in "sprints" like a production.
@@ -13,11 +13,16 @@ and even though I had a lot of tough times I had a lot of fun and
 highs from the work.
 
 #####Demonstration
+<br />
 
 ![productionrunning](https://media.giphy.com/media/zomn3HpxEKhqKIdwQy/giphy.gif)
 
 #####Javadocs
+<br />
+
 ![JavaDocs](https://github.com/willgame10/OOP_Semester_Project_WH/docs/index.html)
 
 #####Diagram
+<br />
+
 ![Diagram](Package io.png)
