@@ -1,4 +1,3 @@
-
 /**
  * Author: William Howell
  * Brief: AudioPlayer class file that contains methods, to_strings, and fields.
@@ -42,7 +41,7 @@ public class AudioPlayer extends Product implements MultiMediaControl {
 
     public String toString() {
         return "Name: " + getName() + "\n" + "Manufacturer: " + getManufacturer() + "\n" + "Type: "
-                + ItemType.AUDIO + "\n" +"Supported Audio Formats: " + supportedAudioFormats + "\n"
-                +"Supported Playlist Formats: " +supportedPlaylistFormats;
+                + ItemType.AUDIO + "\n" + "Supported Audio Formats: " + supportedAudioFormats + "\n"
+                + "Supported Playlist Formats: " + supportedPlaylistFormats;
     }
 }

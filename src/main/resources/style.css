@@ -1,11 +1,31 @@
-.root {
-    -fx-background-color: #6A6969;
-}
 
 .button {
     -fx-border-color: black;
 }
 
 .tab-pane {
-    -fx-background-color: grey;
+    -fx-background-color: #6dcf59;
+    -fx-border-color: #2b4473;
+    -fx-border-radius: 8px;
+    -fx-border-width: 2px;
+}
+.text-area{
+    -fx-border-color: #2b4473;
+    -fx-border-radius: 8px;
+    -fx-border-width: 2px;
+}
+.list-view{
+    -fx-border-color: #2b4473;
+    -fx-border-radius: 8px;
+    -fx-border-width: 2px;
+}
+.table-view{
+    -fx-border-color: #2b4473;
+    -fx-border-radius: 8px;
+    -fx-border-width: 2px;
+}
+.text-field{
+    -fx-border-color: #2b4473;
+    -fx-border-radius: 8px;
+    -fx-border-width: 2px;
 }

@@ -1,4 +1,3 @@
-
 /**
  * Author: William Howell
  * Brief: MoviePlayer class file that contains methods, to_strings, and fields.

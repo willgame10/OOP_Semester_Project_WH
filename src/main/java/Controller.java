@@ -5,11 +5,13 @@ import javafx.scene.control.*;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.cell.PropertyValueFactory;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.sql.PreparedStatement;
-
 import java.sql.*;
 import java.util.ArrayList;
-
 
 
 /**
@@ -25,13 +27,13 @@ public class Controller {
     private final ObservableList<ProductionRecord> productionLog = FXCollections.observableArrayList();
 
     private final ObservableList<Employee> employees = FXCollections.observableArrayList();
-
+    //box that a user will input their name(Employee Tab)
     @FXML
     private TextField empName;
-
+    //box that a user will input a password into(Employee Tab)
     @FXML
     private TextField password;
-
+    //Text area that will display every employee(Employee Tab)
     @FXML
     private TextArea Employee_Text_Area;
 
@@ -61,30 +63,23 @@ public class Controller {
 
     //Column in existingProd table for Type(Product Line Tab)
     @FXML
-    private TableColumn<?, ?> typeCol;
+    private TableColumn<Product, String> typeCol;
 
     //Column in existingProd table for ManufacturerName(Product Line Tab)
     @FXML
-    private TableColumn<?, ?> manufacCol;
+    private TableColumn<Product, String> manufacCol;
 
     //Column in existingProd table for ProductName(Product Line Tab)
     @FXML
-    private TableColumn<?, ?> productCol;
+    private TableColumn<Product, String> productCol;
 
     //Column in existingProd table for ProductId(Product Line Tab)
     @FXML
-    private TableColumn<?, ?> idCol;
+    private TableColumn<Product, Integer> idCol;
 
     //TextArea that displays the production record(Production Log)
     @FXML
     private TextArea text_area;
-
-    //database drivers and location
-    final String JDBC_DRIVER = "org.h2.Driver";
-    final String DB_URL = "jdbc:h2:./res/HR";
-    //Database Credentials
-    final String USER = "";
-    final String PASS = "";
 
     //stores the last four digits of the serial number
     int serialId;
@@ -95,18 +90,51 @@ public class Controller {
     ArrayList<Integer> idVIList = new ArrayList<>();
     ArrayList<Integer> idVMList = new ArrayList<>();
 
+    //variable that will hold the database password.
+    String dBPassword = "";
+
+    //initialization of the BufferedReader to be able to read from a file.
+    BufferedReader reader;
+
+    {
+        try {
+            //reader will read file from this path.
+            reader = Files.newBufferedReader(Paths.get("src/main/resources/password.txt"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    //database drivers and location
+    final static String JDBC_DRIVER = "org.h2.Driver";
+    final static String DB_URL = "jdbc:h2:./res/HR";
+
+    //Database Credentials
+    final static String USER = "";
+    final String PASS = reverseString(dBPassword);
+
     /**
      * brief:Initializes the program and populates the program with items from the database.
      */
     public void initialize() {
+        //init the password from password.txt
+        startPassword();
         connectToDB();
+        //init array list for serial numbers
         setArraylist();
+        //populate combo box with items of ItemType
         PopulateComboBox();
+        //init the existing products table
         setupProductLineTable();
+        //init the list view for the products that are to be produced
         setupProduceListView();
+        //init the employee text area with employees
         setupEmployee_Text_Area();
+        //loads employees into the observable list
         loadEmployees();
+        //loads products into observable list
         loadProductList();
+        //loads production record observable list
         loadProductionLog();
     }
 
@@ -114,7 +142,6 @@ public class Controller {
      * brief: Method that connects the database to the GUI
      */
     public void connectToDB() {
-
         try {
             // STEP 1: Register JDBC driver
             Class.forName(JDBC_DRIVER);
@@ -140,14 +167,15 @@ public class Controller {
      * and populates the TableView with items from the productLine ObservableList.
      */
     private void setupProductLineTable() {
-        idCol.setCellValueFactory(new PropertyValueFactory("Id"));
-        typeCol.setCellValueFactory(new PropertyValueFactory("Name"));
-        manufacCol.setCellValueFactory(new PropertyValueFactory("Manufacturer"));
-        productCol.setCellValueFactory(new PropertyValueFactory("Type"));
+        idCol.setCellValueFactory(new PropertyValueFactory<>("Id"));
+        typeCol.setCellValueFactory(new PropertyValueFactory<>("Type"));
+        manufacCol.setCellValueFactory(new PropertyValueFactory<>("Manufacturer"));
+        productCol.setCellValueFactory(new PropertyValueFactory<>("Name"));
 
         existingProd.setItems(productLine);
     }
-    private void setupEmployee_Text_Area(){
+
+    private void setupEmployee_Text_Area() {
         Employee_Text_Area.appendText(employees.toString());
     }
 
@@ -212,16 +240,19 @@ public class Controller {
                 ist.executeUpdate();
             }
             ist.close();
-            //close database connection
-            conn.close();
 
             //close Query
             stmt.close();
+
+            //close database connection
+            conn.close();
 
 
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
+        prMan.clear();
+        prName.clear();
         //re-loads the product list in the Product Line tab
         loadProductList();
     }
@@ -231,7 +262,6 @@ public class Controller {
      */
     private void loadProductList() {
         productLine.clear();
-
         try {
             // STEP 1: Register JDBC driver
             Class.forName(JDBC_DRIVER);
@@ -311,7 +341,7 @@ public class Controller {
             //creates ProductionRecord items.
             ProductionRecord productionRun = new ProductionRecord(product, serialId);
 
-            //Calls a method that adds the ProductionRecord item to the ProcuctionRecord table in the database.
+            //Calls a method that adds the ProductionRecord item to the ProductionRecord table in the database.
             addToProductionDB(productionRun);
         }
         //loads the ProductionRecord TextArea
@@ -460,8 +490,9 @@ public class Controller {
     }
 
     /**
-     * This method will select the products name where the ID is the same as the productionrecords ID.
-     * @param productionRecord
+     * This method will select the products name where the ID is the same as the productionRecords ID.
+     *
+     * @param productionRecord - takes a production record item.
      * @return String "products name"
      */
     public String productIDtoName(ProductionRecord productionRecord) {
@@ -479,8 +510,8 @@ public class Controller {
             //SQL statement that contains code select all Items from the Product Table in the database.
             String sql = "SELECT NAME FROM PRODUCT WHERE ID = '" + productionRecord.getProductID() + "' ";
             ResultSet rs = stmt.executeQuery(sql);
-                //name of the product is equal to the result of the SQL statement.
-            while(rs.next()) {
+            //name of the product is equal to the result of the SQL statement.
+            while (rs.next()) {
                 nameProd = rs.getString(1);
             }
             //close database connection
@@ -494,8 +525,11 @@ public class Controller {
         return nameProd;
     }
 
+    /**
+     * Brief: This method will add an employee when the button is pressed.
+     */
     @FXML
-    void addEmployee() {
+    public void addEmployee() {
         //prepared statement that inserts products into the database.
         try {
             // STEP 1: Register JDBC driver
@@ -507,10 +541,13 @@ public class Controller {
             //STEP 3: Execute a query
             Statement stmt = conn.createStatement();
 
+            //retrieves name from text field
             String name = empName.getText();
 
+            //retrieves password from text field
             String passWord = password.getText();
 
+            //creates a new employee object.
             Employee employee = new Employee(name, passWord);
 
             //SQL statement that contains code to insert into the console to the database.
@@ -522,7 +559,7 @@ public class Controller {
             //sets the product manufacturer to what the user specifies.
             ist.setString(2, employee.getUsername());
 
-            ist.setString(3, employee.getPassword());
+            ist.setString(3, reverseString(employee.getPassword()));
 
             ist.setString(4, employee.getEmail());
 
@@ -544,9 +581,14 @@ public class Controller {
         loadEmployees();
     }
 
-    public void loadEmployees(){
-    Employee_Text_Area.clear();
-    Employee_Text_Area.setEditable(false);
+    /**
+     * Brief: this method loads employees into the employee text area
+     */
+    public void loadEmployees() {
+        //resets text area
+        Employee_Text_Area.clear();
+        //no one can edit the text area.
+        Employee_Text_Area.setEditable(false);
         try {
             // STEP 1: Register JDBC driver
             Class.forName(JDBC_DRIVER);
@@ -563,9 +605,11 @@ public class Controller {
 
             //loops through every item in the database under the ProductionRecord Table and populates the productionLog ObservableList.
             while (rs.next()) {
-
-                Employee employee = new Employee(rs.getString(2), rs.getString(4));
+                //creates new employee object from database.
+                Employee employee = new Employee(rs.getString(2), reverseString(rs.getString(4)));
+                //adds new employee to array list.
                 employees.add(employee);
+                //adds the new employee to the text area.
                 Employee_Text_Area.appendText(employee.toString());
             }
             //close database connection
@@ -577,11 +621,41 @@ public class Controller {
             e.printStackTrace();
         }
     }
-
+    //reverses the string of anything passed into it.
     public String reverseString(String pw) {
         if (pw.length() <= 1) {
             return pw;
         }
         return reverseString(pw.substring(1)) + pw.charAt(0);
+    }
+
+    /**
+     * Brief: reads password from reader and returns what was found.
+     *
+     * @param reader    -   Buffered reader that will hold the path of the file we want to read.
+     * @return      - returns what was found in the file.
+     * @throws IOException -
+     */
+    public String readPassword(BufferedReader reader) throws IOException {
+        StringBuilder content = new StringBuilder();
+        String line;
+
+        while ((line = reader.readLine()) != null) {
+            content.append(line);
+            content.append(System.lineSeparator());
+        }
+
+        return content.toString();
+    }
+
+    /**
+     * Brief: init the password that was found in the file.
+     */
+    public void startPassword() {
+        try {
+            dBPassword = readPassword(reader);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

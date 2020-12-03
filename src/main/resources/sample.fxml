@@ -4,12 +4,12 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="503.0" prefWidth="593.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="423.0" prefWidth="593.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller">
     <stylesheets>
         <URL value="@style.css" />
         <URL value="@style.css" />
     </stylesheets>
-    <TabPane layoutX="2.0" layoutY="-1.0" prefHeight="400.0" prefWidth="593.0" stylesheets="@style.css" tabClosingPolicy="UNAVAILABLE">
+    <TabPane prefHeight="400.0" prefWidth="593.0" stylesheets="@style.css" tabClosingPolicy="UNAVAILABLE">
         <Tab text="Product Line">
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="347.0" prefWidth="593.0" stylesheets="@style.css">
                 <GridPane prefHeight="142.0" prefWidth="298.0">
@@ -51,27 +51,19 @@
             </AnchorPane>
         </Tab>
         <Tab text="Production Log">
-            <content>
-                <AnchorPane prefHeight="400.0" prefWidth="500.0">
-                    <children>
-                        <TextArea fx:id="text_area" prefHeight="200.0" prefWidth="500.0" />
-                    </children>
-                </AnchorPane>
-            </content>
-        </Tab>
-      <Tab text="Employee">
-        <content>
-          <AnchorPane focusTraversable="true" minHeight="0.0" minWidth="0.0" prefHeight="357.0" prefWidth="593.0">
-               <children>
-                  <TextField fx:id="empName" layoutX="14.0" layoutY="14.0" />
-                  <Label layoutX="185.0" layoutY="18.0" text="Employee Name (surname and lastname)" />
-                  <Label centerShape="false" layoutX="185.0" layoutY="51.0" prefHeight="49.0" prefWidth="347.0" text="Password(1 uppercase, 1 lowercase, and 1 special character" />
-                  <TextField fx:id="password" layoutX="14.0" layoutY="63.0" />
-                  <TextArea fx:id="Employee_Text_Area" layoutX="26.0" layoutY="157.0" prefHeight="200.0" prefWidth="471.0" />
-                  <Button layoutX="240.0" layoutY="113.0" mnemonicParsing="false" onAction="#addEmployee" text="AddEmployeeButton" />
-               </children>
+            <AnchorPane prefHeight="400.0" prefWidth="500.0">
+                <TextArea fx:id="text_area" prefHeight="200.0" prefWidth="500.0" />
             </AnchorPane>
-        </content>
-      </Tab>
+        </Tab>
+        <Tab text="Employee">
+            <AnchorPane focusTraversable="true" minHeight="0.0" minWidth="0.0" prefHeight="357.0" prefWidth="593.0">
+                <TextField fx:id="empName" layoutX="14.0" layoutY="14.0" />
+                <Label layoutX="185.0" layoutY="18.0" text="Employee Name (surname and lastname)" />
+                <Label centerShape="false" layoutX="185.0" layoutY="51.0" prefHeight="49.0" prefWidth="347.0" text="Password(1 uppercase, 1 lowercase, and 1 special character" />
+                <TextField fx:id="password" layoutX="14.0" layoutY="63.0" />
+                <TextArea fx:id="Employee_Text_Area" layoutX="14.0" layoutY="100.0" prefHeight="256.0" prefWidth="368.0" />
+                <Button layoutX="426.0" layoutY="186.0" mnemonicParsing="false" onAction="#addEmployee" text="AddEmployeeButton" />
+            </AnchorPane>
+        </Tab>
     </TabPane>
 </Pane>

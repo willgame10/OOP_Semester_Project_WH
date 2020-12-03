@@ -1,4 +1,3 @@
-
 /**
  * Author: William Howell
  * Brief: Product class file that contains methods, to_strings, and fields.
